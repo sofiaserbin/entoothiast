@@ -1,0 +1,106 @@
+title: |md
+  # Entoothiast
+| {near: top-center}
+# direction: right
+
+PatientUI: {
+  label: <<component>> \n Patient UI
+  #   shape: image
+  #   icon: https://icons.terrastruct.com/dev%2Fvuejs.svg
+}
+PatientUI <-> APIGateway: REST API
+
+DentistUI: {
+  label: <<component>> \n Dentist UI
+  #   shape: image
+  #   icon: https://icons.terrastruct.com/essentials%2F006-window.svg
+}
+DentistUI <-> APIGateway: REST API
+
+APIGateway: {
+  label: <<component>> \n API Gateway
+  #   shape: image
+  #   icon: https://icons.terrastruct.com/infra%2F012-data.svg
+}
+
+APIGateway <-> Booking.MQTTBroker: MQTT {style.animated: true}
+
+Booking: {
+  label: <<subsystem>> \n Booking
+  label.near: top-left
+  MQTTBroker: {
+    label: <<component>> \n MQTT Broker
+    # shape: image
+    shape: queue
+    # icon: https://icons.terrastruct.com/essentials%2F103-wireless%20internet.svg
+  }
+
+  MQTTBroker <-> Scheduling: MQTT {style.animated: true}
+  MQTTBroker <-> Authentication: MQTT {style.animated: true}
+  MQTTBroker <-> Logging: MQTT {style.animated: true}
+  MQTTBroker <-> Statistics: MQTT {style.animated: true}
+
+  Scheduling: {
+    label: <<subsystem>> \n Scheduling
+    label.near: top-center
+    SchedulingService: {
+      label: <<component>> \n Scheduling Service
+      #   shape: image
+      #   icon: https://icons.terrastruct.com/dev%2Fnodejs.svg
+    }
+    SchedulingDB: {
+      label: <<component>> \n Scheduling DB
+      #   shape: image
+      #   icon: https://icons.terrastruct.com/dev%2Fpostgresql.svg
+    }
+    SchedulingService <-> SchedulingDB: PostgreSQL DB Connector
+  }
+
+  Authentication: {
+    label.near: top-center
+    label: <<subsystem>> \n Authentication
+    AuthenticationService: {
+      label: <<component>> \n Authentication Service
+      #   shape: image
+      #   icon: https://icons.terrastruct.com/dev%2Fnodejs.svg
+    }
+    AuthenticationDB: {
+      label: <<component>> \n Authentication DB
+      #   shape: image
+      #   icon: https://icons.terrastruct.com/dev%2Fpostgresql.svg
+    }
+    AuthenticationService <-> AuthenticationDB: PostgreSQL DB Connector
+  }
+
+  Logging: {
+    label: <<subsystem>> \n Logging
+    label.near: top-center
+    LoggingService: {
+      label: <<component>> \n Logging Service
+      #   shape: image
+      #   icon: https://icons.terrastruct.com/dev%2Fnodejs.svg
+    }
+    LoggingDB: {
+      label: <<component>> \n Logging DB
+      #   shape: image
+      #   icon: https://icons.terrastruct.com/dev%2Fpostgresql.svg
+    }
+    LoggingService <-> LoggingDB: PostgreSQL DB Connector
+  }
+
+  Statistics: {
+    label.near: top-center
+    label: <<subsystem>> \n Statistics
+    StatisticsService: {
+      label: <<component>> \n Statistics Service
+      #   shape: image
+      #   icon: https://icons.terrastruct.com/dev%2Fnodejs.svg
+    }
+    StatisticsDB: {
+      label: <<component>> \n Statistics DB
+      #   shape: image
+      #   icon: https://icons.terrastruct.com/dev%2Fpostgresql.svg
+    }
+    StatisticsService <-> StatisticsDB: PostgreSQL DB Connector
+  }
+}

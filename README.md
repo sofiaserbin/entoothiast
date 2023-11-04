@@ -17,3 +17,15 @@ git clone git@git.chalmers.se:courses/dit355/2023/student-teams/dit356-2023-08/p
 git clone git@git.chalmers.se:courses/dit355/2023/student-teams/dit356-2023-08/scheduling-service.git
 git clone git@git.chalmers.se:courses/dit355/2023/student-teams/dit356-2023-08/statistics-service.git
 ```
+
+## Generating & working with diagrams
+
+We use d2lang to generate the component diagram, refer to the [d2 installation instructions](https://d2lang.com/tour/install)
+
+# System architecture
+
+## Component diagram
+
+![Component diagram](./diagrams/component-diagram.svg)
+
+The booking subsystem uses MQTT for communication. To abstract the booking (backend) system, we "hide" it behind an API gateway, which the Patient UI and Dentist UI consume.

@@ -1,0 +1,8 @@
+{
+  "name": "entoothiast",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "diagrams": "d2 --sketch -t 0 ./diagrams/component-diagram.d2 --layout elk ./diagrams/component-diagram.svg"
+  }
+}
