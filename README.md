@@ -23,7 +23,7 @@ git clone git@git.chalmers.se:courses/dit355/2023/student-teams/dit356-2023-08/s
 We use d2lang to generate the component diagram, refer to the [d2 installation instructions](https://d2lang.com/tour/install)
 
 ## Use case diagram
-![Use case diagram](./diagrams/use-case-v1.drawio.svg)
+![Use case diagram](./diagrams/Use-case-v1.drawio.svg)
 
 # System architecture
 
