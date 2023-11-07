@@ -1,0 +1,11 @@
+apps:
+  - name: scheduling-service
+    script: ./index.js
+    cwd: ../scheduling-service/
+    watch: true
+    ignore_watch: ["node_modules", ".git"]
+    env:
+      BROKER_URL: "mqtt://localhost"
+      NODE_ENV: "development"
+    env_production:
+      NODE_ENV: "production"
