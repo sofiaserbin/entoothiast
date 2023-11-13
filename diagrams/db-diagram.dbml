@@ -9,6 +9,18 @@ table clinic {
   location point
 }
 
+enum log_level {
+  info
+  error
+}
+table logs {
+  id int [pk]
+  user_id int // user who did request
+  level log_level
+  message text
+}
+ref: logs.user_id > user.id
+
 table user {
   id int [pk]
   name varchar
@@ -65,5 +77,4 @@ table appointment {
 ref: appointment.patient_id > user.id
 ref: appointment.dentist_id > user.id
 ref: appointment.timeslot_id > timeslot.id
-
 
