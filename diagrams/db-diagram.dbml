@@ -1,0 +1,69 @@
+enum user_role {
+  patient
+  dentist
+}
+
+table clinic {
+  id int [pk]
+  name varchar
+  location point
+}
+
+table user {
+  id int [pk]
+  name varchar
+  username varchar
+  pw_hash varchar
+  clinic_id int
+  role user_role
+}
+
+ref: user.clinic_id > clinic.id
+
+table timeslot {
+  id int [pk]
+  dentist_id int
+  start_time datetime
+  end_time datetime
+}
+
+table patient_on_dentist {
+  patient_id int
+  dentist_id int
+  favorite_dentist boolean
+  rating int
+
+  indexes {
+    (patient_id, dentist_id) [pk]
+  }
+}
+ref: patient_on_dentist.patient_id > user.id
+ref: patient_on_dentist.dentist_id > user.id
+
+enum notification_topic {
+  confirmed
+  cancelled
+}
+table notification {
+  timeslot_id int
+  user_id int
+  topic notification_topic
+  message text
+}
+ref: notification.timeslot_id > timeslot.id
+ref: notification.user_id > user.id
+
+
+table appointment {
+  id int [pk]
+  timeslot_id int
+  patient_id int
+  dentist_id int
+  cancelled boolean [default: false]
+  confirmed boolean [default: false]
+}
+ref: appointment.patient_id > user.id
+ref: appointment.dentist_id > user.id
+ref: appointment.timeslot_id > timeslot.id
+
+
