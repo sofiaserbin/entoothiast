@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev-up": "npm run dev-down; docker-compose up -d && pm2 start pm2-dev.yaml && echo '\n\nServices up and auto-reloading. Use \"npm run logs\" to show logs!\n\n'",
+    "dev-up": "cross-env-shell \"npm run dev-down && docker-compose up -d && pm2 start pm2-dev.yaml\"",
     "dev-down": "docker-compose down && pm2 delete pm2-dev.yaml",
     "logs": "pm2 logs",
     "generate-diagrams": "d2 --sketch -t 0 ./diagrams/component-diagram.d2 --layout elk ./diagrams/component-diagram.svg",
     "dev-diagrams": "d2 --sketch -t 0 -w ./diagrams/component-diagram.d2 --layout elk ./diagrams/component-diagram.svg"
   },
   "dependencies": {
+    "cross-env": "^7.0.3",
     "pm2": "^5.3.0"
   }
 }
