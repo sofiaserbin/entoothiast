@@ -1,12 +1,20 @@
 # Entoothiast
 
+This is considered the "main" repository for entoothiast, allowing you to start all middleware services at once, including the DBMS and MQTT Broker.
+
 # Wiki
 
 Please refer to the wiki for further information, including rationale about the architecture, diagrams, and more.
 
+# Requirements
+
+- Node.js and npm
+- Docker and docker-compose (included in Docker Desktop)
+
 # Getting started
 
 Recommended: Create a folder for the project and clone all repositories into it.
+If you want to run all middleware services at once (explained below), you need this folder structure.
 
 ```bash
 mkdir entoothiast
