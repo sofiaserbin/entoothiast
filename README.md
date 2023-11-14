@@ -1,5 +1,9 @@
 # Entoothiast
 
+# Wiki
+
+Please refer to the wiki for further information, including rationale about the architecture, diagrams, and more.
+
 # Getting started
 
 Recommended: Create a folder for the project and clone all repositories into it.
@@ -21,14 +25,3 @@ git clone git@git.chalmers.se:courses/dit355/2023/student-teams/dit356-2023-08/s
 ## Generating & working with diagrams
 
 We use d2lang to generate the component diagram, refer to the [d2 installation instructions](https://d2lang.com/tour/install)
-
-## Use case diagram
-![Use case diagram](./diagrams/Use-case-v2.drawio.svg)
-
-# System architecture
-
-## Component diagram
-
-![Component diagram](./diagrams/component-diagram.svg)
-
-The booking subsystem uses MQTT for communication. To abstract the booking (backend) system, we "hide" it behind an API gateway, which the Patient UI and Dentist UI consume.
