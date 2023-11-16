@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev-up": "cross-env-shell \"npm run dev-down && docker-compose up -d && pm2 start pm2-dev.yaml\"",
-    "dev-down": "docker-compose down && pm2 delete pm2-dev.yaml",
-    "logs": "pm2 logs",
-    "generate-diagrams": "d2 --sketch -t 0 ./diagrams/component-diagram.d2 --layout elk ./diagrams/component-diagram.svg; d2 --sketch -t 0 ./diagrams/sequence-diagram.d2 --layout elk ./diagrams/sequence-diagram.svg",
-    "dev-component-diagram": "d2 --sketch -t 0 -w ./diagrams/component-diagram.d2 --layout elk ./diagrams/component-diagram.svg",
-    "dev-sequence-diagram": "d2 --sketch -t 0 -w ./diagrams/sequence-diagram.d2 --layout elk ./diagrams/sequence-diagram.svg"
+    "services:up": "cross-env-shell \"npm run services:down && docker-compose up -d && pm2 start pm2-dev.yaml\"",
+    "services:down": "docker-compose down && pm2 delete pm2-dev.yaml",
+    "services:logs": "pm2 logs",
+    "db:logs": "docker-compose logs -f db",
+    "db:cli": "docker-compose exec db psql -U postgres -d entoothiast",
+    "diagrams:generate": "d2 --sketch -t 0 ./diagrams/component-diagram.d2 --layout elk ./diagrams/component-diagram.svg; d2 --sketch -t 0 ./diagrams/sequence-diagram.d2 --layout elk ./diagrams/sequence-diagram.svg",
+    "diagrams:component-dev": "d2 --sketch -t 0 -w ./diagrams/component-diagram.d2 --layout elk ./diagrams/component-diagram.svg",
+    "diagrams:sequence-dev": "d2 --sketch -t 0 -w ./diagrams/sequence-diagram.d2 --layout elk ./diagrams/sequence-diagram.svg"
   },
   "dependencies": {
     "cross-env": "^7.0.3",
