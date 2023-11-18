@@ -1,15 +1,13 @@
 stages:
   - build
 
-variables:
-  DOCKER_IMAGE: 'node:14'
 
 before_script:
   - npm install -g pm2
 
 install_dependencies:
   stage: build
-  image: $DOCKER_IMAGE
+  image: node:14
   script:
     - npm install  # Add your specific installation commands here
 
