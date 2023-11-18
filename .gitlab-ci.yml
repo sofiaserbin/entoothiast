@@ -2,15 +2,6 @@ stages:
   - build
 
 
-before_script:
-  - npm install -g pm2
-
-install_dependencies:
-  stage: build
-  image: node:14
-  script:
-    - npm install  # Add your specific installation commands here
-
 build:
   stage: build
   image: node:14
