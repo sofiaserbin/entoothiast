@@ -1,0 +1,25 @@
+title: |md
+  # Example: Request-Response over MQTT
+| {near: top-center}
+
+direction: right
+
+dx: Using "mqtt-request" library: {
+  shape: sequence_diagram
+  Client -> API-Gateway: "[HTTP]\nGET /demo"
+  API-Gateway -> Scheduling-Service: "[MQTT]\nTopic: \"demo\"" {style.font-color: red}
+  Scheduling-Service."Parse request,\nDB queries,\n..."
+  Scheduling-Service -> API-Gateway: "[MQTT]\nTopic: \"demo\"" {style.font-color: red}
+  API-Gateway -> Client: "[HTTP]\n200 OK"
+}
+
+internal: Actual MQTT topics sent: {
+  shape: sequence_diagram
+  Client -> API-Gateway: "[HTTP]\nGET /demo"
+  API-Gateway -> Scheduling-Service: "[MQTT]\nTopic: \"demo/@request/ABC123\"" {style.font-color: red}
+  Scheduling-Service."Parse request,\nDB queries,\n..."
+  Scheduling-Service -> API-Gateway: "[MQTT]\nTopic: \"demo/@response/ABC123\"" {style.font-color: red}
+  API-Gateway -> Client: "[HTTP]\n200 OK"
+}
+
+dx -> internal: Represented as

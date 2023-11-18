@@ -1,0 +1,78 @@
+title: |md
+  # Entoothiast
+| {near: top-center}
+# direction: right
+
+PatientUI: {
+  label: <<component>> \n Patient UI
+  #   shape: image
+  #   icon: https://icons.terrastruct.com/dev%2Fvuejs.svg
+}
+PatientUI -> APIGateway: REST API
+
+DentistUI: {
+  label: <<component>> \n Dentist UI
+  #   shape: image
+  #   icon: https://icons.terrastruct.com/essentials%2F006-window.svg
+}
+DentistUI -> APIGateway: REST API
+
+APIGateway: {
+  label: <<component>> \n API Gateway
+  #   shape: image
+  #   icon: https://icons.terrastruct.com/infra%2F012-data.svg
+}
+
+APIGateway -> Booking.MQTTBroker: MQTT {style.animated: true}
+
+Booking: {
+  label: <<subsystem>> \n Booking
+  label.near: top-left
+  MQTTBroker: {
+    label: <<component>> \n MQTT Broker
+    # shape: image
+    shape: queue
+    # icon: https://icons.terrastruct.com/essentials%2F103-wireless%20internet.svg
+  }
+
+  MQTTBroker <-> SchedulingService: MQTT {style.animated: true}
+  MQTTBroker <-> AuthenticationService: MQTT {style.animated: true}
+  MQTTBroker <-> LoggingService: MQTT {style.animated: true}
+  MQTTBroker <-> StatisticsService: MQTT {style.animated: true}
+
+  SchedulingService: {
+    label: <<component>> \n Scheduling Service
+    # shape: image
+    # icon: https://icons.terrastruct.com/dev%2Fnodejs.svg
+  }
+
+  AuthenticationService: {
+    label: <<component>> \n Authentication Service
+    # shape: image
+    # icon: https://icons.terrastruct.com/dev%2Fnodejs.svg
+  }
+
+  LoggingService: {
+    label: <<component>> \n Logging Service
+    # shape: image
+    # icon: https://icons.terrastruct.com/dev%2Fnodejs.svg
+  }
+
+  StatisticsService: {
+    label: <<component>> \n Statistics Service
+    # shape: image
+    # icon: https://icons.terrastruct.com/dev%2Fnodejs.svg
+  }
+
+  SchedulingService -> DB: PostgreSQL DB Connector
+  AuthenticationService -> DB: PostgreSQL DB Connector
+  LoggingService -> DB: PostgreSQL DB Connector
+  StatisticsService -> DB: PostgreSQL DB Connector
+
+  DB: {
+    label: <<database>> \n PostgreSQL DB
+    # shape: image
+    shape: cylinder
+    # icon: https://icons.terrastruct.com/dev%2Fpostgresql-words.svg
+  }
+}

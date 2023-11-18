@@ -1,0 +1,42 @@
+apps:
+  - name: scheduling-service
+    script: ./index.js
+    cwd: ../scheduling-service/
+    watch: true
+    ignore_watch: ["node_modules", ".git"]
+    env:
+      BROKER_URL: "mqtt://localhost"
+      NODE_ENV: "development"
+  - name: logging-service
+    script: ./index.js
+    cwd: ../logging-service/
+    watch: true
+    ignore_watch: ["node_modules", ".git"]
+    env:
+      BROKER_URL: "mqtt://localhost"
+      NODE_ENV: "development"
+  - name: statistics-service
+    script: ./index.js
+    cwd: ../statistics-service/
+    watch: true
+    ignore_watch: ["node_modules", ".git"]
+    env:
+      BROKER_URL: "mqtt://localhost"
+      NODE_ENV: "development"
+  - name: authentication-service
+    script: ./index.js
+    cwd: ../authentication-service/
+    watch: true
+    ignore_watch: ["node_modules", ".git"]
+    env:
+      BROKER_URL: "mqtt://localhost"
+      NODE_ENV: "development"
+  - name: api-gateway
+    script: ./index.js
+    cwd: ../api-gateway/
+    watch: true
+    ignore_watch: ["node_modules", ".git"]
+    env:
+      BROKER_URL: "mqtt://localhost"
+      PORT: 3000
+      NODE_ENV: "development"
