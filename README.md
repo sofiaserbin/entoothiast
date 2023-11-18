@@ -2,9 +2,7 @@
 
 This is considered the "main" repository for entoothiast, allowing you to start all middleware services at once, including the DBMS and MQTT Broker.
 
-# Wiki
-
-Please refer to the wiki for further information, including rationale about the architecture, diagrams, and more.
+<mark>Please refer to the wiki for further information, including rationale about the architecture, diagrams, and more. </mark>
 
 # Requirements
 
@@ -36,15 +34,44 @@ For developing the middleware + MQTT Broker + DBMS (auto-reload when changes hap
 
 ```bash
 # within entoothiast/entoothiast:
-npm run dev-up # starts the backend services
-npm run logs # shows and updates the logs of the backend services
-npm run dev-down # stops the backend services
+npm run services:up # starts the backend services
+npm run serivces:logs # shows and updates the logs of the backend services
+npm run services:stop # stops the backend services
 ```
 
 This uses the configuration from `pm2-dev.yaml` (node services) and `docker-compose.yml` (database, mqtt broker).
 
-## Generating & working with diagrams
+# Database
 
-- We use d2lang to generate the component diagram, refer to the [d2 installation instructions](https://d2lang.com/tour/install)
+The database credentials for devevelopment (`localhost:5432`) are:
+
+- username: `postgres`
+- password: `postgres`
+- database: `entoothiast`
+
+Use those credentials to connect to the database with your favorite tool (e.g. DBeaver) or use the following command to start psql within the docker container:
+
+```bash
+npm run db:cli
+```
+
+View the DB logs using:
+
+```bash
+npm run db:logs
+```
+
+# Testing MQTT
+
+To publish/subcribe to MQTT topics, you can use the following commands:
+
+```bash
+npx mqtt pub -t "topic" -m "message"
+npx mqtt sub -t "topic"
+```
+
+# Generating & working with diagrams
+
+- We use d2lang to generate the component and sequence diagram, refer to the [d2 installation instructions](https://d2lang.com/tour/install) and [the package.json scripts](./package.json).
 - The DB diagram uses [dbdiagram](https://dbdiagram.io)
 - The Use Case diagram uses [draw.io](https://draw.io)

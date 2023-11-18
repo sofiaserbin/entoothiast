@@ -7,6 +7,7 @@ apps:
     env:
       BROKER_URL: "mqtt://localhost"
       NODE_ENV: "development"
+      CONNECTION_STRING: "postgres://postgres:postgres@localhost:5432/entoothiast"
   - name: logging-service
     script: ./index.js
     cwd: ../logging-service/
@@ -15,6 +16,7 @@ apps:
     env:
       BROKER_URL: "mqtt://localhost"
       NODE_ENV: "development"
+      CONNECTION_STRING: "postgres://postgres:postgres@localhost:5432/entoothiast"
   - name: statistics-service
     script: ./index.js
     cwd: ../statistics-service/
@@ -23,6 +25,7 @@ apps:
     env:
       BROKER_URL: "mqtt://localhost"
       NODE_ENV: "development"
+      CONNECTION_STRING: "postgres://postgres:postgres@localhost:5432/entoothiast"
   - name: authentication-service
     script: ./index.js
     cwd: ../authentication-service/
@@ -31,6 +34,7 @@ apps:
     env:
       BROKER_URL: "mqtt://localhost"
       NODE_ENV: "development"
+      CONNECTION_STRING: "postgres://postgres:postgres@localhost:5432/entoothiast"
   - name: api-gateway
     script: ./index.js
     cwd: ../api-gateway/
