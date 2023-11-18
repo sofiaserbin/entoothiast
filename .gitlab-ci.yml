@@ -1,26 +1,8 @@
-stages:
-  - build
-
-
-variables:
-  DOCKER_IMAGE: 'node:14'  # Use Node.js 14 Docker image or your preferred version
-
-before_script:
-  - npm install -g pm2  # Install pm2 globally if not available
-
-install_dependencies:
-  stage: build
-  image: $DOCKER_IMAGE
+build-job:
+  image: node
   script:
     - npm install
-  tags:
-    - docker  # Runner with Docker capabilities
 
-compile_application:
-  stage: build
-  image: $DOCKER_IMAGE
-  script:
-    - npm run build  # Replace with your compilation script if needed
-  tags:
-    - docker  # Runner with Docker capabilities
+
+
 
