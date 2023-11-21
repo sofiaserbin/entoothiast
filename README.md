@@ -36,7 +36,7 @@ For developing the middleware + MQTT Broker + DBMS (auto-reload when changes hap
 # within entoothiast/entoothiast:
 npm run services:up # starts the backend services
 npm run serivces:logs # shows and updates the logs of the backend services
-npm run services:stop # stops the backend services
+npm run services:down # stops the backend services
 ```
 
 This uses the configuration from `pm2-dev.yaml` (node services) and `docker-compose.yml` (database, mqtt broker).
