@@ -30,16 +30,27 @@ git clone git@git.chalmers.se:courses/dit355/2023/student-teams/dit356-2023-08/s
 
 Then, check out the branch you're working on in each repository (+ pull) + run `npm install`.
 
-For developing the middleware + MQTT Broker + DBMS (auto-reload when changes happen), you can use the following commands:
+# Useful commands
 
 ```bash
 # within entoothiast/entoothiast:
-npm run services:up # starts the backend services
+npm run compose:up # (re-)starts the MQTT broker and database
+npm run services:up # (re-)starts the backend services
 npm run serivces:logs # shows and updates the logs of the backend services
 npm run services:down # stops the backend services
 ```
 
-This uses the configuration from `pm2-dev.yaml` (node services) and `docker-compose.yml` (database, mqtt broker).
+Note: When using `npm run services:up`, the changed service will automatically restart when you make changes to its code.
+
+<mark>The services will continue running in the background until stopped!</mark>
+Use `npm run all:down` to stop all services + DB + MQTT broker at once.
+
+See database-related commands below.
+
+# Useful configuration files
+
+- pm2-dev.yaml: Configuratin file for pm2, which handles the node services (MQTT services and API-gateway)
+- docker-compose.yml: Configuration file for docker-compose, which handles the database and MQTT broker
 
 # Database
 
