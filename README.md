@@ -81,6 +81,12 @@ npx mqtt pub -t "topic" -m "message"
 npx mqtt sub -t "topic"
 ```
 
+To keep track of all sent MQTT messages, you can use the following command:
+
+```bash
+npm run mqtt:watch
+```
+
 # Generating & working with diagrams
 
 - We use d2lang to generate the component and sequence diagram, refer to the [d2 installation instructions](https://d2lang.com/tour/install) and [the package.json scripts](./package.json).
