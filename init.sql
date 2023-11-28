@@ -14,29 +14,29 @@ CREATE TYPE "notification_topic" AS ENUM (
 );
 
 CREATE TABLE "clinic" (
-  "id" int PRIMARY KEY,
+  "id" serial PRIMARY KEY,
   "name" varchar,
   "location" point
 );
 
 CREATE TABLE "logs" (
-  "id" int PRIMARY KEY,
+  "id" serial PRIMARY KEY,
   "user_id" int,
   "level" log_level,
   "message" text
 );
 
 CREATE TABLE "user" (
-  "id" int PRIMARY KEY,
-  "name" varchar,
-  "username" varchar,
-  "pw_hash" varchar,
-  "clinic_id" int,
+  "id" serial PRIMARY KEY,
+  "name" varchar not null,
+  "username" varchar unique not null,
+  "pw_hash" varchar not null,
+  "clinic_id" int, -- for dentists
   "role" user_role
 );
 
 CREATE TABLE "timeslot" (
-  "id" int PRIMARY KEY,
+  "id" serial PRIMARY KEY,
   "dentist_id" int,
   "start_time" timestamp,
   "end_time" timestamp
@@ -58,7 +58,7 @@ CREATE TABLE "notification" (
 );
 
 CREATE TABLE "appointment" (
-  "id" int PRIMARY KEY,
+  "id" serial PRIMARY KEY,
   "timeslot_id" int,
   "patient_id" int,
   "dentist_id" int,

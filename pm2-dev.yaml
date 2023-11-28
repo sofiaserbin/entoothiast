@@ -1,6 +1,7 @@
 apps:
   - name: scheduling-service
     script: ./index.js
+    time: true
     cwd: ../scheduling-service/
     watch: true
     ignore_watch: ["node_modules", ".git"]
@@ -10,6 +11,7 @@ apps:
       CONNECTION_STRING: "postgres://postgres:postgres@localhost:5432/entoothiast"
   - name: logging-service
     script: ./index.js
+    time: true
     cwd: ../logging-service/
     watch: true
     ignore_watch: ["node_modules", ".git"]
@@ -19,6 +21,7 @@ apps:
       CONNECTION_STRING: "postgres://postgres:postgres@localhost:5432/entoothiast"
   - name: statistics-service
     script: ./index.js
+    time: true
     cwd: ../statistics-service/
     watch: true
     ignore_watch: ["node_modules", ".git"]
@@ -28,6 +31,7 @@ apps:
       CONNECTION_STRING: "postgres://postgres:postgres@localhost:5432/entoothiast"
   - name: authentication-service
     script: ./index.js
+    time: true
     cwd: ../authentication-service/
     watch: true
     ignore_watch: ["node_modules", ".git"]
@@ -37,6 +41,7 @@ apps:
       CONNECTION_STRING: "postgres://postgres:postgres@localhost:5432/entoothiast"
   - name: api-gateway
     script: ./index.js
+    time: true
     cwd: ../api-gateway/
     watch: true
     ignore_watch: ["node_modules", ".git"]
