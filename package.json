@@ -9,7 +9,6 @@
     "compose:up": "cross-env-shell \"docker-compose down && docker-compose up -d\"",
     "compose:down": "docker-compose down",
     "all:down": "cross-env-shell \"npm run services:down && npm run compose:down\"",
-    "insert-data": "docker-compose exec db psql -U postgres -d entoothiast -f /docker-entrypoint-initdb.d/initial-data.sql",
     "mqtt:watch": "mqtt sub -t '#' -h localhost -v",
     "db:logs": "docker-compose logs -f db",
     "db:cli": "docker-compose exec db psql -U postgres -d entoothiast",
