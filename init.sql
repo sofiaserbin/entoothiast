@@ -23,9 +23,8 @@ CREATE TABLE "clinic" (
 
 CREATE TABLE "logs" (
   "id" serial PRIMARY KEY,
-  "user_id" int,
-  "level" log_level,
-  "message" text
+  "topic" varchar,
+  "payload" text
 );
 
 CREATE TABLE "user" (
