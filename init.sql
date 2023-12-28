@@ -66,8 +66,6 @@ CREATE TABLE "appointment" (
   "confirmed" boolean DEFAULT false
 );
 
-ALTER TABLE "logs" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
-
 ALTER TABLE "user" ADD FOREIGN KEY ("clinic_id") REFERENCES "clinic" ("id");
 
 ALTER TABLE "patient_on_dentist" ADD FOREIGN KEY ("patient_id") REFERENCES "user" ("id");
