@@ -23,6 +23,7 @@ CREATE TABLE "clinic" (
 
 CREATE TABLE "logs" (
   "id" serial PRIMARY KEY,
+  "timestamp" timestamp default now(),
   "topic" varchar,
   "payload" text
 );
