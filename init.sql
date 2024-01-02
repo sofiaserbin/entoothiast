@@ -11,7 +11,8 @@ CREATE TYPE "log_level" AS ENUM (
 
 CREATE TYPE "notification_topic" AS ENUM (
   'confirmed',
-  'cancelled'
+  'cancelled',
+  'changed'
 );
 
 CREATE TABLE "clinic" (
@@ -23,6 +24,7 @@ CREATE TABLE "clinic" (
 
 CREATE TABLE "logs" (
   "id" serial PRIMARY KEY,
+  "timestamp" timestamp default now(),
   "topic" varchar,
   "payload" text
 );

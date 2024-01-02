@@ -5,6 +5,7 @@
   "scripts": {
     "services:up": "cross-env-shell \"npm run services:down && pm2 start pm2-dev.yaml\"",
     "services:down": "pm2 delete pm2-dev.yaml",
+    "services:status": "pm2 status",
     "services:logs": "pm2 logs",
     "compose:up": "cross-env-shell \"docker-compose down && docker-compose up -d\"",
     "compose:down": "docker-compose down",
