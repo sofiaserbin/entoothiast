@@ -18,16 +18,16 @@ INSERT INTO "user" ("name", "username", "pw_hash", "role", "clinic_id") VALUES (
 
 INSERT INTO "user" ("name", "username", "pw_hash", "role") VALUES ('Admin 1', 'admin1', '$2b$10$jMW33.ViVG8r9Jv7nsbPhu2ItagSF4r8e2r5iqZClgq/e7XEk5Pwy', 'admin');
 
-INSERT INTO "timeslot" (dentist_id, start_time, end_time) VALUES (1, '2023-12-10 12:00:00', '2023-12-10 13:00:00');
-INSERT INTO "timeslot" (dentist_id, start_time, end_time) VALUES (1, '2023-12-10 15:00:00', '2023-12-10 15:45:00');
+INSERT INTO "timeslot" (dentist_id, start_time, end_time) VALUES (6, '2023-12-10 12:00:00', '2023-12-10 13:00:00');
+INSERT INTO "timeslot" (dentist_id, start_time, end_time) VALUES (6, '2023-12-10 15:00:00', '2023-12-10 15:45:00');
 
-INSERT INTO "timeslot" (dentist_id, start_time, end_time) VALUES (2, '2024-03-01 15:00:00', '2024-03-01 16:00:00');
-INSERT INTO "timeslot" (dentist_id, start_time, end_time) VALUES (2, '2024-03-01 16:00:00', '2024-03-01 17:00:00');
-INSERT INTO "timeslot" (dentist_id, start_time, end_time) VALUES (2, '2024-03-01 17:00:00', '2024-03-01 18:00:00');
+INSERT INTO "timeslot" (dentist_id, start_time, end_time) VALUES (7, '2024-03-01 15:00:00', '2024-03-01 16:00:00');
+INSERT INTO "timeslot" (dentist_id, start_time, end_time) VALUES (7, '2024-03-01 16:00:00', '2024-03-01 17:00:00');
+INSERT INTO "timeslot" (dentist_id, start_time, end_time) VALUES (7, '2024-03-01 17:00:00', '2024-03-01 18:00:00');
 
 
-INSERT INTO "appointment" (timeslot_id, patient_id, dentist_id, confirmed) VALUES (1, 1, 1, true);
-INSERT INTO "appointment" (timeslot_id, patient_id, dentist_id, confirmed) VALUES (2, 2, 1, true);
+INSERT INTO "appointment" (timeslot_id, patient_id, dentist_id, confirmed) VALUES (1, 1, 6, true);
+INSERT INTO "appointment" (timeslot_id, patient_id, dentist_id, confirmed) VALUES (2, 2, 6, true);
 
 INSERT INTO "notification" ("user_id", topic, "message") VALUES (1, 'confirmed', 'Your appointment on Dec 10th, 13:00 has been confirmed');
 INSERT INTO "notification" ("user_id", topic, "message") VALUES (6, 'confirmed', 'Patient 1 has cancelled the appointment on Dec 10th, 13:00');
