@@ -1,0 +1,51 @@
+apps:
+  - name: scheduling-service
+    script: ./index.js
+    time: true
+    cwd: ../scheduling-service/
+    instances: max
+    exec_mode: cluster
+    env:
+      BROKER_URL: "mqtt://localhost"
+      NODE_ENV: "production"
+      CONNECTION_STRING: "postgres://postgres:postgres@localhost:5432/entoothiast"
+  - name: logging-service
+    script: ./index.js
+    time: true
+    cwd: ../logging-service/
+    instances: max
+    exec_mode: cluster
+    env:
+      BROKER_URL: "mqtt://localhost"
+      NODE_ENV: "production"
+      CONNECTION_STRING: "postgres://postgres:postgres@localhost:5432/entoothiast"
+  - name: statistics-service
+    script: ./index.js
+    time: true
+    cwd: ../statistics-service/
+    instances: max
+    exec_mode: cluster
+    env:
+      BROKER_URL: "mqtt://localhost"
+      NODE_ENV: "production"
+      CONNECTION_STRING: "postgres://postgres:postgres@localhost:5432/entoothiast"
+  - name: authentication-service
+    script: ./index.js
+    time: true
+    cwd: ../authentication-service/
+    instances: max
+    exec_mode: cluster
+    env:
+      BROKER_URL: "mqtt://localhost"
+      NODE_ENV: "production"
+      CONNECTION_STRING: "postgres://postgres:postgres@localhost:5432/entoothiast"
+  - name: api-gateway
+    script: ./index.js
+    time: true
+    cwd: ../api-gateway/
+    # API Gateway is not scaled, because the same instance that received
+    # the HTTP request must also handle the response, which is hard to
+    # implement.
+    BROKER_URL: "mqtt://localhost"
+    PORT: 3000
+    NODE_ENV: "production"
