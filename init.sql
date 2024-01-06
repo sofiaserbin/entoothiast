@@ -12,7 +12,8 @@ CREATE TYPE "log_level" AS ENUM (
 CREATE TYPE "notification_topic" AS ENUM (
   'confirmed',
   'cancelled',
-  'changed'
+  'changed',
+  'new'
 );
 
 CREATE TABLE "clinic" (
