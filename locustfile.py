@@ -35,38 +35,41 @@ class Authenticate(TaskSet):
         }
 
         self.client.post("/v1/users/login", json=login_payload)
-    
-        
-class DentistFunctionality(TaskSet):
-    @task 
-    def get_all_dentists(self):
-        self.client.get("/v1/dentists")
 
-    @task(2) 
-    def create_new_timeslot(self):
-        random_dentistId = random.randint(6, 10)
-        start_time = datetime.now() + timedelta(days=random.randint(1, 30))
-        end_time = start_time + timedelta(hours=random.randint(1, 6))
-    
-        newTimeslot_payload = {
-        "start_time": start_time.strftime("%Y-%m-%d %H:%M:%S"),
-        "end_time": end_time.strftime("%Y-%m-%d %H:%M:%S")
-         }
-        self.client.post(f'/v1/dentists/{random_dentistId}/timeslots', json = newTimeslot_payload)
+
+        
+
+
+
+class userFunctionality(TaskSet):
+    wait_time = between(1, 3)
+    token = None
+
+    def login(self):
+        login_payload = {
+            "username": "patient1",
+            "password": "test"
+        }
+        response = self.client.post("/v1/users/login", json=login_payload)
+        self.token = response.json().get("token", None)
+
+    def on_start(self):
+        self.login()
 
     @task(3) 
     def rate_dentist(self):
-        random_dentistId = random.randint(6, 10)
+        headers = {'Authorization': f'Bearer {self.token}'}
+        random_dentistId = 6
         rating_payload = {
             "rating": random.randint(1, 5)
         }
-        self.client.post(f'/v1/dentists/{random_dentistId}/ratings', json = rating_payload)
+        self.client.patch(f'/v1/users/dentists/{random_dentistId}', json = rating_payload, headers = headers)
 
 
 
 class QuickstartUser(HttpUser):
-    tasks = [Authenticate, DentistFunctionality]
-    wait_time = between(1, 5)
+    tasks = [Authenticate, userFunctionality]
+    wait_time = between(1, 3)
     
 
     @task
@@ -81,6 +84,22 @@ class QuickstartUser(HttpUser):
     def get_user(self):
         random_userId = random.randint(1, 5)
         self.client.get(f'/v1/users/{random_userId}')
+
+    @task 
+    def get_all_dentists(self):
+        self.client.get("/v1/dentists")
+
+    @task 
+    def get_all_appointments_of_a_user(self):
+        random_userId = random.randint(1, 5)
+        self.client.get(f'/v1/users/{random_userId}/appointments')
+
+    @task 
+    def get_all_notifications_of_a_user(self):
+        random_userId = random.randint(1, 5)
+        self.client.get(f'/v1/users/{random_userId}/notifications')
+
+
     
 
     
