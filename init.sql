@@ -12,7 +12,8 @@ CREATE TYPE "log_level" AS ENUM (
 CREATE TYPE "notification_topic" AS ENUM (
   'confirmed',
   'cancelled',
-  'changed'
+  'changed',
+  'new'
 );
 
 CREATE TABLE "clinic" (
@@ -54,9 +55,11 @@ CREATE TABLE "patient_on_dentist" (
 );
 
 CREATE TABLE "notification" (
+  "id" serial PRIMARY KEY,
   "user_id" int,
   "topic" notification_topic,
-  "message" text
+  "message" text,
+  "read" boolean default false
 );
 
 CREATE TABLE "appointment" (
