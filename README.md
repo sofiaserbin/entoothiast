@@ -74,6 +74,14 @@ npm run mqtt:watch # shows all MQTT messages that are sent
 npx mqtt pub -t "topic" -m "message" # publishes a message to a topic
 ```
 
+Running the load test (use `http://localhost:3000` as the host - unless you changed the port):
+
+```bash
+npm run load-test
+```
+
+This assumes that the initial-data (test data) is inserted. So make sure to run `npm run compose:up` and not `npm run compose-prod:up`!
+
 Note: When using `npm run services:up`, the changed service will automatically restart when you make changes to its code.
 
 <mark>The services will continue running in the background until stopped!</mark>

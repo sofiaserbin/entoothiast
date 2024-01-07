@@ -3,7 +3,7 @@ apps:
     script: ./index.js
     time: true
     cwd: ../scheduling-service/
-    instances: max
+    instances: 3
     exec_mode: cluster
     env:
       BROKER_URL: "mqtt://localhost"
@@ -13,7 +13,7 @@ apps:
     script: ./index.js
     time: true
     cwd: ../logging-service/
-    instances: max
+    instances: 3
     exec_mode: cluster
     env:
       BROKER_URL: "mqtt://localhost"
@@ -23,7 +23,7 @@ apps:
     script: ./index.js
     time: true
     cwd: ../statistics-service/
-    instances: max
+    instances: 3
     exec_mode: cluster
     env:
       BROKER_URL: "mqtt://localhost"
@@ -33,7 +33,7 @@ apps:
     script: ./index.js
     time: true
     cwd: ../authentication-service/
-    instances: max
+    instances: 3
     exec_mode: cluster
     env:
       BROKER_URL: "mqtt://localhost"
@@ -46,6 +46,7 @@ apps:
     # API Gateway is not scaled, because the same instance that received
     # the HTTP request must also handle the response, which is hard to
     # implement.
-    BROKER_URL: "mqtt://localhost"
-    PORT: 3000
-    NODE_ENV: "production"
+    env:
+      BROKER_URL: "mqtt://localhost"
+      PORT: 3000
+      NODE_ENV: "production"

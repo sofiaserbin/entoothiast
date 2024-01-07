@@ -14,6 +14,7 @@
     "compose:down": "docker-compose -f compose-dev.yml down",
     "compose-prod:down": "docker-compose -f compose-prod.yml down",
     "all:down": "cross-env-shell \"npm run services:down && npm run services-prod:down && npm run compose:down && npm run compose-prod:down\"",
+    "load-test": "locust --processes -1",
     "mqtt:watch": "mqtt sub -t '#' -h localhost -v",
     "db:logs": "docker-compose -f compose-dev.yml logs -f db",
     "db-prod:logs": "docker-compose -f compose-prod.yml logs -f db",
