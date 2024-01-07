@@ -9,6 +9,11 @@ This is considered the "main" repository for entoothiast, allowing you to start 
 - Node.js and npm
 - Docker and docker-compose (included in Docker Desktop)
 
+For running the load test (using locust):
+
+- python3
+- locust, faker (`pip3 install locust faker`)
+
 # Getting started
 
 Recommended: Create a folder for the project and clone all repositories into it.
