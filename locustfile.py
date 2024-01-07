@@ -4,13 +4,14 @@ import random
 from datetime import datetime, timedelta
 
 
+
 class Authenticate(TaskSet):
     fake = Faker()
     users = {}
 
     @task
     def register(self):
-        fake_username = self.fake.user_name()
+        fake_username = self.fake.user_name() + str(random.randint(1, 1000))
         fake_password = self.fake.password()
         fake_name = self.fake.name()
 
