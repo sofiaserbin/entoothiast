@@ -65,6 +65,18 @@ class userFunctionality(TaskSet):
         }
         self.client.patch(f'/v1/users/dentists/{random_dentistId}', json = rating_payload, headers = headers)
 
+    @task 
+    def get_all_appointments_of_a_user(self):
+        headers = {'Authorization': f'Bearer {self.token}'}
+        random_userId = 1
+        self.client.get(f'/v1/users/{random_userId}/appointments', headers = headers)
+
+    @task 
+    def get_all_notifications_of_a_user(self):
+        headers = {'Authorization': f'Bearer {self.token}'}
+        random_userId = 1
+        self.client.get(f'/v1/users/{random_userId}/notifications', headers = headers)
+
 
 
 class QuickstartUser(HttpUser):
@@ -82,22 +94,14 @@ class QuickstartUser(HttpUser):
 
     @task 
     def get_user(self):
-        random_userId = random.randint(1, 5)
+        random_userId = 1
         self.client.get(f'/v1/users/{random_userId}')
 
     @task 
     def get_all_dentists(self):
         self.client.get("/v1/dentists")
 
-    @task 
-    def get_all_appointments_of_a_user(self):
-        random_userId = random.randint(1, 5)
-        self.client.get(f'/v1/users/{random_userId}/appointments')
-
-    @task 
-    def get_all_notifications_of_a_user(self):
-        random_userId = random.randint(1, 5)
-        self.client.get(f'/v1/users/{random_userId}/notifications')
+    
 
 
     
