@@ -1,6 +1,7 @@
 CREATE TYPE "user_role" AS ENUM (
   'patient',
-  'dentist'
+  'dentist',
+  'admin'
 );
 
 CREATE TYPE "log_level" AS ENUM (
@@ -10,20 +11,22 @@ CREATE TYPE "log_level" AS ENUM (
 
 CREATE TYPE "notification_topic" AS ENUM (
   'confirmed',
-  'cancelled'
+  'cancelled',
+  'changed'
 );
 
 CREATE TABLE "clinic" (
   "id" serial PRIMARY KEY,
   "name" varchar,
-  "location" point
+  "latitude" decimal(9,6),
+  "longitude" decimal(9,6)
 );
 
 CREATE TABLE "logs" (
   "id" serial PRIMARY KEY,
-  "user_id" int,
-  "level" log_level,
-  "message" text
+  "timestamp" timestamp default now(),
+  "topic" varchar,
+  "payload" text
 );
 
 CREATE TABLE "user" (
@@ -51,7 +54,6 @@ CREATE TABLE "patient_on_dentist" (
 );
 
 CREATE TABLE "notification" (
-  "timeslot_id" int,
   "user_id" int,
   "topic" notification_topic,
   "message" text
@@ -66,15 +68,11 @@ CREATE TABLE "appointment" (
   "confirmed" boolean DEFAULT false
 );
 
-ALTER TABLE "logs" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
-
 ALTER TABLE "user" ADD FOREIGN KEY ("clinic_id") REFERENCES "clinic" ("id");
 
 ALTER TABLE "patient_on_dentist" ADD FOREIGN KEY ("patient_id") REFERENCES "user" ("id");
 
 ALTER TABLE "patient_on_dentist" ADD FOREIGN KEY ("dentist_id") REFERENCES "user" ("id");
-
-ALTER TABLE "notification" ADD FOREIGN KEY ("timeslot_id") REFERENCES "timeslot" ("id");
 
 ALTER TABLE "notification" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
 
