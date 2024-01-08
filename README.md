@@ -7,7 +7,7 @@ This is considered the "main" repository for entoothiast, allowing you to start 
 # Requirements
 
 - Node.js and npm
-- Docker and docker-compose (included in Docker Desktop)
+- Docker and docker-compose (which is included in Docker Desktop)
 
 For running the load test (using locust):
 
@@ -17,7 +17,7 @@ For running the load test (using locust):
 # Getting started
 
 Recommended: Create a folder for the project and clone all repositories into it.
-If you want to run all middleware services at once (explained below), you need this folder structure.
+If you want to run all middleware services at once as explained below, you need this folder structure.
 
 ```bash
 mkdir entoothiast
@@ -37,60 +37,70 @@ Then, check out the branch you're working on in each repository (+ pull) + run `
 
 # Useful commands
 
+<mark>Use the following within the folder entoothiast/entoothiast (folder of this README):</mark>
+
+Starting compose services (DB + MQTT broker):
+
 ```bash
-# within entoothiast/entoothiast:
-npm run compose:up # (re-)starts the MQTT broker and database
-npm run services:up # (re-)starts the backend services
-npm run serivces:logs # shows and updates the logs of the backend services
-npm run services:down # stops the backend services
+npm run compose:up # (re-)starts the MQTT broker and database + inserts test data
+npm run compose-prod:up # the same, but without test data
+npm run compose:down
+npm run compose-prod:down
 ```
+
+Starting the middleware:
+
+```bash
+npm run services:up # (re-)starts the backend services
+npm run services-prod:up # the same, but scaled horizontally across CPUs
+npm run services:down
+npm run services-prod:down
+
+npm run services:status # shows the status of the backend services
+npm run serivces:logs # shows and updates the logs of the backend services
+```
+
+Useful DB-related commands:
+
+```bash
+npm run db:cli # starts psql within the docker container
+npm run db:logs # shows and updates the logs of the database
+```
+
+Useful MQTT-related commands:
+
+```bash
+npm run mqtt:watch # shows all MQTT messages that are sent
+npx mqtt pub -t "topic" -m "message" # publishes a message to a topic
+```
+
+Running the load test (use `http://localhost:3000` as the host - unless you changed the port):
+
+```bash
+npm run load-test
+```
+
+This assumes that the initial-data (test data) is inserted. So make sure to run `npm run compose:up` and not `npm run compose-prod:up`!
 
 Note: When using `npm run services:up`, the changed service will automatically restart when you make changes to its code.
 
 <mark>The services will continue running in the background until stopped!</mark>
 Use `npm run all:down` to stop all services + DB + MQTT broker at once.
 
-See database-related commands below.
-
 # Useful configuration files
 
-- pm2-dev.yaml: Configuratin file for pm2, which handles the node services (MQTT services and API-gateway)
-- docker-compose.yml: Configuration file for docker-compose, which handles the database and MQTT broker
+- `pm2-dev.yml`, `pm2-prod.yml`: Configuratin file for pm2, which handles the node services (MQTT services and API-gateway)
+- `compose-dev.yml`, `compose-prod.yml`: Configuration file for docker-compose, which handles the database and MQTT broker
 
 # Database
 
-The database credentials for devevelopment (`localhost:5432`) are:
+The default database (`localhost:5432`) credentials, unless changed, are:
 
 - username: `postgres`
 - password: `postgres`
 - database: `entoothiast`
 
-Use those credentials to connect to the database with your favorite tool (e.g. DBeaver) or use the following command to start psql within the docker container:
-
-```bash
-npm run db:cli
-```
-
-View the DB logs using:
-
-```bash
-npm run db:logs
-```
-
-# Testing MQTT
-
-To publish/subcribe to MQTT topics, you can use the following commands:
-
-```bash
-npx mqtt pub -t "topic" -m "message"
-npx mqtt sub -t "topic"
-```
-
-To keep track of all sent MQTT messages, you can use the following command:
-
-```bash
-npm run mqtt:watch
-```
+Use those credentials to connect to the database with your favorite tool (e.g. DBeaver) or use `npm run db:cli` to start psql within the docker container
 
 # Generating & working with diagrams
 
