@@ -1,16 +1,82 @@
 stages:
   - build
+  - test
 
+variables:
+  GIT_STRATEGY: fetch
 
 build:
   stage: build
-  image: node:14
+  image: node:20
+  artifacts:
+    paths:
+      - services/
+      - node_modules/
   script:
+    - pwd
+    - npm install -g npm
+    - npm install
+    - mkdir services
+    - cd services
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@git.chalmers.se/courses/dit355/2023/student-teams/dit356-2023-08/authentication-service
+    - cd authentication-service
+    - npm install
+    - cd ..
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@git.chalmers.se/courses/dit355/2023/student-teams/dit356-2023-08/scheduling-service.git scheduling-service
+    - cd scheduling-service
+    - npm install
+    - cd ..
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@git.chalmers.se/courses/dit355/2023/student-teams/dit356-2023-08/statistics-service.git statistics-service
+    - cd statistics-service
+    - npm install
+    - cd ..
+    - rm -rf logging-service
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@git.chalmers.se/courses/dit355/2023/student-teams/dit356-2023-08/logging-service.git logging-service
+    - cd logging-service
+    - npm install
+    - cd ..
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@git.chalmers.se/courses/dit355/2023/student-teams/dit356-2023-08/api-gateway.git api-gateway
+    - cd api-gateway
     - npm install
   tags:
     - docker
 
+test:
+  stage: test
+  image: node:20
+  services:
+    - name: postgres:latest
+      alias: postgres
+  variables:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+    POSTGRES_DB: entoothiast
 
+  before_script:
+    - apt-get update -qy && apt-get install -y git mosquitto postgresql-client
+    - mosquitto -c ./mosquitto.conf -d -p 1883
+    - PGPASSWORD=$POSTGRES_PASSWORD psql -h postgres -U $POSTGRES_USER -d $POSTGRES_DB -f ./init.sql
+    - PGPASSWORD=$POSTGRES_PASSWORD psql -h postgres -U $POSTGRES_USER -d $POSTGRES_DB -f ./initial-data.sql
+    - cd ./services/api-gateway
+    - git fetch https://gitlab-ci-token:${CI_JOB_TOKEN}@git.chalmers.se/courses/dit355/2023/student-teams/dit356-2023-08/api-gateway.git tests
+    - git checkout tests
+    - npm install -D
+    - cd ../..
 
+  script:
+    - pwd
+    - npm run services-ci:up
+    - npx pm2 logs --nostream
+    - timeout 60s bash -c 'while ! curl -sSf http://localhost:3000 >/dev/null; do sleep 1; done'
+    - cd ./services/api-gateway
+    - npx mocha ./tests/**.test.js --exit --reporter mocha-junit-reporter --reporter-options mochaFile=./test-results.xml
+    - npx pm2 stop all
 
-
+  artifacts:
+    paths:
+      - services/api-gateway/test-results.xml
+    reports:
+      junit:
+        - services/api-gateway/test-results.xml
+  tags:
+    - docker

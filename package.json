@@ -5,6 +5,7 @@
   "scripts": {
     "services:up": "cross-env-shell \"npm run services:down && pm2 start pm2-dev.yaml\"",
     "services-prod:up": "cross-env-shell \"npm run services-prod:down && pm2 start pm2-prod.yaml\"",
+    "services-ci:up": "cross-env-shell \"pm2 start pm2-ci.yaml\"",
     "services:down": "pm2 delete pm2-dev.yaml",
     "services-prod:down": "pm2 delete pm2-prod.yaml",
     "services:status": "pm2 status",
