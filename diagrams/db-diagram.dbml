@@ -1,25 +1,22 @@
 enum user_role {
   patient
   dentist
+  admin
 }
 
 table clinic {
   id int [pk]
   name varchar
-  location point
+  latitude double
+  longitude double
 }
 
-enum log_level {
-  info
-  error
-}
 table logs {
   id int [pk]
-  user_id int // user who did request
-  level log_level
-  message text
+  timestamp timestamp
+  topic varchar
+  payload varchar
 }
-ref: logs.user_id > user.id
 
 table user {
   id int [pk]
@@ -38,6 +35,7 @@ table timeslot {
   start_time datetime
   end_time datetime
 }
+ref: timeslot.dentist_id > user.id
 
 table patient_on_dentist {
   patient_id int
@@ -57,12 +55,12 @@ enum notification_topic {
   cancelled
 }
 table notification {
-  timeslot_id int
+  id int [pk]
   user_id int
   topic notification_topic
   message text
+  read boolean 
 }
-ref: notification.timeslot_id > timeslot.id
 ref: notification.user_id > user.id
 
 

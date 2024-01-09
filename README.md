@@ -60,6 +60,11 @@ npm run services:status # shows the status of the backend services
 npm run serivces:logs # shows and updates the logs of the backend services
 ```
 
+Note: When using `npm run services:up`, the changed service will automatically restart when you make changes to its code.
+
+<mark>The services will continue running in the background until stopped!</mark>
+Use `npm run all:down` to stop all services + DB + MQTT broker at once.
+
 Useful DB-related commands:
 
 ```bash
@@ -82,11 +87,6 @@ npm run load-test
 
 This assumes that the initial-data (test data) is inserted. So make sure to run `npm run compose:up` and not `npm run compose-prod:up`!
 
-Note: When using `npm run services:up`, the changed service will automatically restart when you make changes to its code.
-
-<mark>The services will continue running in the background until stopped!</mark>
-Use `npm run all:down` to stop all services + DB + MQTT broker at once.
-
 # Useful configuration files
 
 - `pm2-dev.yml`, `pm2-prod.yml`: Configuratin file for pm2, which handles the node services (MQTT services and API-gateway)
@@ -101,6 +101,11 @@ The default database (`localhost:5432`) credentials, unless changed, are:
 - database: `entoothiast`
 
 Use those credentials to connect to the database with your favorite tool (e.g. DBeaver) or use `npm run db:cli` to start psql within the docker container
+
+# CI & Integration tests
+
+We use GitLab CI to run integration tests on the API-gateway and the services.
+The configuration for the CI can be found in `.gitlab-ci.yml` in this repository, and the test can be found in the API-gateway repository (since the tests are run against the API-gateway).
 
 # Generating & working with diagrams
 
