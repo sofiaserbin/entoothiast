@@ -1,0 +1,41 @@
+apps:
+  - name: scheduling-service
+    script: ./index.js
+    time: true
+    cwd: ./services/scheduling-service/
+    env:
+      BROKER_URL: "mqtt://localhost"
+      NODE_ENV: "development"
+      CONNECTION_STRING: "postgres://postgres:postgres@postgres:5432/entoothiast"
+  - name: logging-service
+    script: ./index.js
+    time: true
+    cwd: ./services/logging-service/
+    env:
+      BROKER_URL: "mqtt://localhost"
+      NODE_ENV: "development"
+      CONNECTION_STRING: "postgres://postgres:postgres@postgres:5432/entoothiast"
+  - name: statistics-service
+    script: ./index.js
+    time: true
+    cwd: ./services/statistics-service/
+    env:
+      BROKER_URL: "mqtt://localhost"
+      NODE_ENV: "development"
+      CONNECTION_STRING: "postgres://postgres:postgres@postgres:5432/entoothiast"
+  - name: authentication-service
+    script: ./index.js
+    time: true
+    cwd: ./services/authentication-service/
+    env:
+      BROKER_URL: "mqtt://localhost"
+      NODE_ENV: "development"
+      CONNECTION_STRING: "postgres://postgres:postgres@postgres:5432/entoothiast"
+  - name: api-gateway
+    script: ./index.js
+    time: true
+    cwd: ./services/api-gateway/
+    env:
+      BROKER_URL: "mqtt://localhost"
+      PORT: 3000
+      NODE_ENV: "development"
